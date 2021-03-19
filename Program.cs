@@ -1,35 +1,35 @@
 ﻿using System;
 
-namespace Delegates
+namespace ErrorHandlingApplication
 {
-    public delegate void DelEventHandler();
-
-    class Program
+    class DivNumbers
     {
-        public static event DelEventHandler add;
+        int result;
 
+        DivNumbers()
+        {
+            result = 0;
+        }
+        public void division(int num1, int num2)
+        {
+            try
+            {
+                result = num1 / num2;
+            }
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine("Exception caught: {0}", e);
+            }
+            finally
+            {
+                Console.WriteLine("Result: {0}", result);
+            }
+        }
         static void Main(string[] args)
         {
-            add += new DelEventHandler(USA);
-            add += new DelEventHandler(India);
-            add += new DelEventHandler(England);
-            add.Invoke();
-
-            Console.ReadLine();
-        }
-        static void USA()
-        {
-            Console.WriteLine("USA");
-        }
-
-        static void India()
-        {
-            Console.WriteLine("India");
-        }
-
-        static void England()
-        {
-            Console.WriteLine("England");
+            DivNumbers d = new DivNumbers();
+            d.division(25, 0);
+            Console.ReadKey();
         }
     }
 }
